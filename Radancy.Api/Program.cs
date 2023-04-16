@@ -29,25 +29,28 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapPost("/user", async ( /*UserCreateRequestModel*/IUserService userService) =>
+var accountGroup = app.MapGroup("/account");
+var userGroup = app.MapGroup("/user");
+
+userGroup.MapPost("/", async ( /*UserCreateRequestModel*/IUserService userService) =>
 {
     var user = await userService.Create();
     return Results.Ok(user); // we wouldn't like to expose the id to the user, otherwise map to a response object
 });
 
-app.MapPost("/account", async (CreateAccountRequestModel requestModel, IAccountService service) =>
+accountGroup.MapPost("/", async (CreateAccountRequestModel requestModel, IAccountService service) =>
 {
     var account = await service.Create(requestModel.UserId);
     return Results.Ok(account);
 });
 
-app.MapPost("/account/withdraw", async (WithdrawRequestModel requestModel, IAccountService service) =>
+accountGroup.MapPost("/withdraw", async (WithdrawRequestModel requestModel, IAccountService service) =>
 {
     var result = await service.Withdraw(requestModel.AccountId, requestModel.Amount);
     return Results.Ok(result);
 });
 
-app.MapPost("/account/deposit", async (DepositRequestModel requestModel, IAccountService service) =>
+accountGroup.MapPost("/deposit", async (DepositRequestModel requestModel, IAccountService service) =>
 {
     var result = await service.Deposit(requestModel.AccountId, requestModel.Amount);
     return Results.Ok(result);
