@@ -11,8 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 // db context
 builder.Services.AddDbContext<RadancyDbContext>(options => options.UseInMemoryDatabase("RadancyInMemoryDatabase"));
 // repositories
-builder.Services.AddTransient<IUserRepository, UserRepository>();
-builder.Services.AddTransient<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 // services
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IAccountService, AccountService>();
