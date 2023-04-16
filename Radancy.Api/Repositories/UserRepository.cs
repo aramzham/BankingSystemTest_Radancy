@@ -11,10 +11,7 @@ public class UserRepository : BaseRepository, IUserRepository
 
     public async Task<User> Create()
     {
-        var result = await _dbContext.AddAsync(new User()
-        {
-            Id = Guid.NewGuid()
-        });
+        var result = await _dbContext.AddAsync(new User());
         
         await _dbContext.SaveChangesAsync();
 

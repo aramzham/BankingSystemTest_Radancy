@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Carter" Version="7.0.1" />
+    <PackageReference Include="Hashids.net" Version="1.7.0" />
+    <PackageReference Include="Mapster" Version="7.4.0-pre06" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1-pre02" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />

@@ -2,5 +2,5 @@ namespace Radancy.Api.Models;
 
 public class UserModel
 {
-    public Guid Id { get; set; }
+    public required int Id { get; set; }
 }

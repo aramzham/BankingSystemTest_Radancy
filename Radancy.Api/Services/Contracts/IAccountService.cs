@@ -4,7 +4,7 @@ namespace Radancy.Api.Services.Contracts;
 
 public interface IAccountService
 {
-    Task<AccountModel> Create(Guid userId);
-    Task<AccountModel> Withdraw(Guid accountId, decimal requestModelAmount);
-    Task<AccountModel> Deposit(Guid accountId, decimal amount);
+    Task<AccountModel> Create(int userId);
+    Task<AccountModel> Withdraw(int accountId, decimal requestModelAmount);
+    Task<AccountModel> Deposit(int accountId, decimal amount);
 }

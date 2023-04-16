@@ -4,6 +4,6 @@ namespace Radancy.Api.Repositories.Contracts;
 
 public interface IAccountRepository : IBaseRepository
 {
-    Task<Account> Create(Guid userId);
-    Task<Account> Get(Guid accountId);
+    Task<Account> Create(int userId);
+    Task<Account> Get(int accountId);
 }

@@ -2,7 +2,7 @@ namespace Radancy.Api.Models;
 
 public class AccountModel
 {
-    public Guid Id { get; set; }
-    public Guid UserId { get; set; }
-    public decimal Balance { get; set; }
+    public required int Id { get; set; }
+    public required int UserId { get; set; }
+    public required decimal Balance { get; set; }
 }

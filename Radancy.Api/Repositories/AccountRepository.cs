@@ -9,7 +9,7 @@ public class AccountRepository : BaseRepository, IAccountRepository
     {
     }
     
-    public async Task<Account> Create(Guid userId)
+    public async Task<Account> Create(int userId)
     {
         var existingUser = await  _dbContext.Users.FindAsync(userId);
         if (existingUser is null)
@@ -17,7 +17,6 @@ public class AccountRepository : BaseRepository, IAccountRepository
         
         var result = await _dbContext.Accounts.AddAsync(new Account()
         {
-            Id = Guid.NewGuid(),
             UserId = userId,
             Balance = 100// An account cannot have less than $100 at any time in an account.
         });
@@ -27,7 +26,7 @@ public class AccountRepository : BaseRepository, IAccountRepository
         return result.Entity;
     }
 
-    public async Task<Account> Get(Guid accountId)
+    public async Task<Account> Get(int accountId)
     {
         var account = await _dbContext.Accounts.FindAsync(accountId);
         if (account is null)

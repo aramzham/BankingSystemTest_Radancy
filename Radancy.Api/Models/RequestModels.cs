@@ -1,7 +1,7 @@
 namespace Radancy.Api.Models;
 
-public record CreateAccountRequestModel(Guid UserId);
+public record CreateAccountRequestModel(string UserId);
 
-public record WithdrawRequestModel(Guid AccountId, decimal Amount);
+public record WithdrawRequestModel(string AccountId, decimal Amount);
 
-public record DepositRequestModel(Guid AccountId, decimal Amount);
+public record DepositRequestModel(string AccountId, decimal Amount);

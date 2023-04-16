@@ -1,3 +1,4 @@
+using Mapster;
 using Radancy.Api.Models;
 using Radancy.Api.Repositories.Contracts;
 using Radancy.Api.Services.Contracts;
@@ -13,18 +14,13 @@ public class AccountService : IAccountService
         _accountRepository = accountRepository;
     }
 
-    public async Task<AccountModel> Create(Guid userId)
+    public async Task<AccountModel> Create(int userId)
     {
         var account = await _accountRepository.Create(userId);
-        return new AccountModel()
-        {
-            Id = account.Id,
-            Balance = account.Balance,
-            UserId = account.UserId
-        };
+        return account.Adapt<AccountModel>();
     }
 
-    public async Task<AccountModel> Withdraw(Guid accountId, decimal amount)
+    public async Task<AccountModel> Withdraw(int accountId, decimal amount)
     {
         var account = await _accountRepository.Get(accountId);
         if(account is null)
@@ -51,15 +47,10 @@ public class AccountService : IAccountService
 
         await _accountRepository.SaveChanges();
 
-        return new AccountModel()
-        {
-            UserId = account.UserId,
-            Id = account.Id,
-            Balance = account.Balance
-        };
+        return account.Adapt<AccountModel>();
     }
 
-    public async Task<AccountModel> Deposit(Guid accountId, decimal amount)
+    public async Task<AccountModel> Deposit(int accountId, decimal amount)
     {
         var account = await _accountRepository.Get(accountId);
         if(account is null)
@@ -75,11 +66,6 @@ public class AccountService : IAccountService
         
         await _accountRepository.SaveChanges();
         
-        return new AccountModel()
-        {
-            UserId = account.UserId,
-            Id = account.Id,
-            Balance = account.Balance
-        };
+        return account.Adapt<AccountModel>();
     }
 }
