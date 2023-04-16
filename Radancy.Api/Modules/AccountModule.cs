@@ -23,14 +23,20 @@ public class AccountModule : ICarterModule
         if (rawId.Length == 0)
             return Results.NotFound();
         
-        var account = await service.Create(rawId[0]);
-        var response = account.Adapt<AccountResponseModel>() with // this code repetition must be moved to the mapper config somehow
-        {
-            UserId = hashids.Encode(account.UserId),
-            Id = hashids.Encode(account.Id)
-        };
+        var result = await service.Create(rawId[0]);
+        return result.Match(
+                f => Results.BadRequest(f.Adapt<ValidationFailedResponseModel>()),
+                account =>
+                {
+                    var response = account.Adapt<AccountResponseModel>() with // this code repetition must be moved to the mapper config somehow
+                    {
+                        UserId = hashids.Encode(account.UserId),
+                        Id = hashids.Encode(account.Id)
+                    };
         
-        return Results.Ok(response);
+                    return Results.Ok(response);
+                }
+        );
     }
 
     private async Task<IResult> Withdraw(WithdrawRequestModel requestModel, IAccountService service, IHashids hashids)
@@ -39,14 +45,20 @@ public class AccountModule : ICarterModule
         if (rawId.Length == 0)
             return Results.NotFound();
         
-        var account = await service.Withdraw(rawId[0], requestModel.Amount);
-        var response = account.Adapt<AccountResponseModel>() with
-        {
-            UserId = hashids.Encode(account.UserId),
-            Id = hashids.Encode(account.Id)
-        };
+        var result = await service.Withdraw(rawId[0], requestModel.Amount);
+        return result.Match(
+            f => Results.BadRequest(f.Adapt<ValidationFailedResponseModel>()),
+            account =>
+            {
+                var response = account.Adapt<AccountResponseModel>() with // this code repetition must be moved to the mapper config somehow
+                {
+                    UserId = hashids.Encode(account.UserId),
+                    Id = hashids.Encode(account.Id)
+                };
         
-        return Results.Ok(response);
+                return Results.Ok(response);
+            }
+        );
     }
 
     private async Task<IResult> Deposit(DepositRequestModel requestModel, IAccountService service, IHashids hashids)
@@ -55,13 +67,19 @@ public class AccountModule : ICarterModule
         if (rawId.Length == 0)
             return Results.NotFound();
         
-        var account = await service.Deposit(rawId[0], requestModel.Amount);
-        var response = account.Adapt<AccountResponseModel>() with
-        {
-            UserId = hashids.Encode(account.UserId),
-            Id = hashids.Encode(account.Id)
-        };
+        var result = await service.Deposit(rawId[0], requestModel.Amount);
+        return result.Match(
+            f => Results.BadRequest(f.Adapt<ValidationFailedResponseModel>()),
+            account =>
+            {
+                var response = account.Adapt<AccountResponseModel>() with // this code repetition must be moved to the mapper config somehow
+                {
+                    UserId = hashids.Encode(account.UserId),
+                    Id = hashids.Encode(account.Id)
+                };
         
-        return Results.Ok(response);
+                return Results.Ok(response);
+            }
+        );
     }
 }

@@ -9,5 +9,6 @@ public class ServiceToResponseConfig : IRegister
     {
         config.NewConfig<UserModel, UserResponseModel>();
         config.NewConfig<AccountModel, AccountResponseModel>();
+        config.NewConfig<ValidationFailed, ValidationFailedResponseModel>();
     }
 }
