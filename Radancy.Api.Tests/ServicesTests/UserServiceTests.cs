@@ -23,7 +23,7 @@ public class UserServiceTests
     public async Task CreateUser_Should_Return_User()
     {
         // arrange
-        var id = new Faker().Random.Guid();
+        var id = new Faker().Random.Int();
         _userRepositoryMock.Create().Returns(new User{Id = id});
         
         // act
