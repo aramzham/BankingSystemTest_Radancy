@@ -19,11 +19,10 @@ public class AccountRepository : BaseRepository, IAccountRepository
         
         var result = await _dbContext.Accounts.AddAsync(new Account()
         {
-            UserId = userId,
-            Balance = 100// An account cannot have less than $100 at any time in an account.
+            UserId = userId
         });
 
-        await  _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync();
         
         return result.Entity;
     }

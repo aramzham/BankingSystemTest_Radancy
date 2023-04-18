@@ -8,7 +8,7 @@ public class Account
     public int Id { get; set; }
     [ForeignKey("UserId")]
     public required int UserId { get; set; }
-    public required decimal Balance { get; set; }
+    public decimal Balance { get; set; } = 100m; // An account cannot have less than $100 at any time in an account.
 
     public virtual User? AccountHolder { get; set; }
     // add other properties
